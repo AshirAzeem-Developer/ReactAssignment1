@@ -61,9 +61,6 @@ h4 {
   width: 100%;
   border-radius: 35px;
   box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.217);
-
-
-
 }
 
 #Name {
@@ -79,3 +76,38 @@ h4 {
   font-weight: bold;
   font-family: cursive;
 }
+
+/* ReactAssignment 2 Css */
+/* body {
+  text-align: center;
+}
+
+input {
+  padding: 25px;
+  width: 280px;
+  font-size: 1rem;
+
+}
+
+button {
+  padding: 25px;
+  font-size: 1rem;
+
+  margin: 18px;
+  width: 145px;
+}
+
+ol {
+  list-style: circle;
+  list-style-position: inside;
+}
+
+.SubButtons {
+  padding: 18px;
+  font-size: 1rem;
+  border-radius: 25px;
+  box-shadow: 2px 2px 8px grey;
+  margin: 18px;
+  width: 120px;
+
+} */
