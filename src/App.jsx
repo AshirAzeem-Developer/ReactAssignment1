@@ -2,6 +2,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 import Navbar from "./Components/Navbar";
+import Input from "./Components/input";
+import Button from "./Components/button";
 
 function App() {
   // let products = [
@@ -96,7 +98,8 @@ function App() {
   //     category: "Chargers, Batteries & Power Supplies",
   //   },
   // ];
-  const [task, setTask] = useState();
+  const [task, setTask] = useState("");
+
   let TodoInputHandle = (event) => {
     setTask(event.target.value);
     // console.log(task);
@@ -104,18 +107,20 @@ function App() {
 
   let [todos, setTodos] = useState([]);
 
+  // ===============================Add Task=============================
+
   const todoListAdd = () => {
-    setTodos((oldItems) => {
-      return [...oldItems, task];
-    });
+    todos.push(task);
+    console.log(todos);
+    setTodos([...todos]);
     setTask("");
-    // console.log(todos);
   };
+
   // ===============================Delete Task=============================
 
-  const deleteItem = () => {
-    console.log("Deleted");
-    todos.pop(task);
+  const deleteItem = (i) => {
+    // console.log("Deleted");
+    todos.splice(i, 1);
     setTodos([...todos]);
   };
   // ===============================Delete All Task=============================
@@ -129,11 +134,99 @@ function App() {
 
   // ===============================Edit Task=============================
 
+  const edit = (i) => {
+    let a = prompt("Enter Task !!!!!!!!!!!");
+    todos[i] = a;
+    setTodos([...todos]);
+  };
+
+  // ================================================================================
+  // ================================================================================
+  // =========================  Quiz App  ===========================================
+  // ================================================================================
+  // ================================================================================
+
+  const [isOn, setIsON] = useState(false);
+  const [questions, setQuestions] = useState([
+    {
+      numb: 1,
+      question: "What does HTML stand for?",
+      answer: "Hyper Text Markup Language",
+      options: [
+        "Hyper Text Preprocessor",
+        "Hyper Text Markup Language",
+        "Hyper Text Multiple Language",
+        "Hyper Tool Multi Language",
+      ],
+    },
+    {
+      numb: 2,
+      question: "What does CSS stand for?",
+      answer: "Cascading Style Sheet",
+      options: [
+        "Common Style Sheet",
+        "Colorful Style Sheet",
+        "Computer Style Sheet",
+        "Cascading Style Sheet",
+      ],
+    },
+    {
+      numb: 3,
+      question: "What does PHP stand for?",
+      answer: "Hypertext Preprocessor",
+      options: [
+        "Hypertext Preprocessor",
+        "Hypertext Programming",
+        "Hypertext Preprogramming",
+        "Hometext Preprocessor",
+      ],
+    },
+    {
+      numb: 4,
+      question: "What does SQL stand for?",
+      answer: "Structured Query Language",
+      options: [
+        "Stylish Question Language",
+        "Stylesheet Query Language",
+        "Statement Question Language",
+        "Structured Query Language",
+      ],
+    },
+    {
+      numb: 5,
+      question: "What does XML stand for?",
+      answer: "eXtensible Markup Language",
+      options: [
+        "eXtensible Markup Language",
+        "eXecutable Multiple Language",
+        "eXTra Multi-Program Language",
+        "eXamine Multiple Language",
+      ],
+    },
+  ]);
+
+  const [indexNumber, setIndexNumber] = useState(0);
+  const [marks, setMarks] = useState(0);
+  const [result, setResult] = useState(false);
+
+  const checkQuestion = (userSelected, correctAnswer) => {
+    console.log("userSelected==================>" + userSelected);
+    console.log("CorrectAnswer==================>" + correctAnswer);
+    if (userSelected == correctAnswer) {
+      setMarks(marks + 1);
+    }
+
+    if (indexNumber + 1 == questions.length) {
+      setResult(true);
+    }
+    setIndexNumber(indexNumber + 1);
+  };
+
   return (
     <>
-      <Navbar text="BootStrap NavBar" />
+      {/* <Navbar text="BootStrap NavBar" />
       <div className="App d-flex flex-column align-items-center justify-content-center p-5">
-        {/* <body>
+         <body>
         <h1>E-Commerce Store</h1>
         <p id="subScrpt">Made By Ashir-Azeem</p>
         <div className="main">
@@ -150,40 +243,99 @@ function App() {
             );
           })}
         </div>
-      </body> */}
+      </body>
         <h1>Todo App</h1>
         <br />
         <div className="text-center">
-          <input
-            type="text"
+          <Input
             placeholder="Enter Task Here"
-            value={task}
-            onChange={TodoInputHandle}
+            myFunction={TodoInputHandle}
             className="p-2 w-100 "
+            value={task}
           />
-          <button onClick={todoListAdd} className="p-2 w-50  mx-auto  m-3">
-            Add
-          </button>
-          <button onClick={deleteAllTask} className="p-2 w-50  mx-auto m-3">
-            DeleteAll
-          </button>
+          <Button
+            myFunction={todoListAdd}
+            className="p-2 w-50  mx-auto  m-3"
+            label="Add"
+          />
+          <Button
+            myFunction={deleteAllTask}
+            className="p-2 w-50  mx-auto m-3"
+            label="Delete All"
+          />
         </div>
 
-        <div className="Tasks">
+        <div className="Tasks ">
           <ol>
             {todos.map((x, i) => {
               return (
-                <li id={i} key={i}>
+                <li
+                  className="d-flex align-iyems-center justify-content-center"
+                  id={i}
+                  key={i}
+                >
                   {x}
-                  <button className="btn btn-info shadow ">Edit</button>
-                  <button onClick={deleteItem} className="btn btn-info shadow ">
-                    Delete
-                  </button>
+                  <Button
+                    className="btn btn-info shadow "
+                    myFunction={() => edit(i)}
+                    label="Edit"
+                  />
+                  <Button
+                    className="btn btn-info shadow "
+                    myFunction={() => deleteItem(i)}
+                    label="Delete"
+                  />
                 </li>
               );
             })}
           </ol>
         </div>
+      </div> */}
+      {/* ===========================    QUIZ APP =========================== */}
+
+      {/* Condition Based Rendering */}
+      {/* <div>
+        <button
+          className="p-3 rounded-pill w-25 m-5"
+          onClick={() => setIsON(!isOn)}
+        >
+          {isOn ? "OFF" : "ON"}
+        </button>
+        {isOn ? <h1>ON</h1> : ""}
+      </div> */}
+
+      <div className="mainContainer">
+        <div>
+          <h1>Quiz App</h1>
+          <p id="subScrpt" className="p-3">
+            Made By Ashir-Azeem
+          </p>
+        </div>
+        {result ? (
+          <div>
+            <h1>You Scored {marks} marks</h1>
+          </div>
+        ) : (
+          <div className="innerContainer">
+            <h1 id="Question">{questions[indexNumber].question}</h1>
+            <hr />
+            <div className="options">
+              {questions[indexNumber].options.map((x, i) => {
+                return (
+                  <div key={i}>
+                    <button
+                      onClick={() =>
+                        checkQuestion(x, questions[indexNumber].answer)
+                      }
+                    >
+                      {x}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
